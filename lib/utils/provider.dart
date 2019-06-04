@@ -59,9 +59,11 @@ class Provider {
 
   Future init(bool isCreate) async {
     //Get a location using getDatabasesPath
+    // 数据库路径 和 数据名称
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'flutter.db');
     print(path);
+
     try {
       db = await openDatabase(path);
     } catch (e) {
@@ -69,6 +71,7 @@ class Provider {
     }
     bool tableIsRight = await this.checkTableIsRight();
 
+    // 这是 因兼容而存在
     if (!tableIsRight) {
       // 关闭上面打开的db，否则无法执行open
       db.close();
@@ -77,6 +80,7 @@ class Provider {
       ByteData data = await rootBundle.load(join("assets", "app.db"));
       List<int> bytes =
       data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
       await new File(path).writeAsBytes(bytes);
 
       db = await openDatabase(path, version: 1,
@@ -85,6 +89,7 @@ class Provider {
           }, onOpen: (Database db) async {
             print('new db opened');
           });
+
     } else {
       print("Opening existing database");
     }
