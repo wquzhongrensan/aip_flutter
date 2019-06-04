@@ -48,7 +48,7 @@ class _MyHomePageState extends State<AppPage>
   TabController controller;
 
   bool isSearch = false;
-  
+
   String data = '无';
   String data2ThirdPage = '这是传给ThirdPage的值';
   String appBarTitle = tabData[0]['text'];
@@ -167,7 +167,7 @@ class _MyHomePageState extends State<AppPage>
       // 顶部 bar
       appBar: new AppBar(title: buildSearchInput(context)),
 
-      // 主体
+      // 主体 tabbarview
       body: new TabBarView(controller: controller, children: <Widget>[
         new FirstPage(),
         new WidgetPage(db),
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<AppPage>
               ],
             ),
 
-            // tabbar
+            // tabbar 包含 controller + tabs
             child: TabBar(
                 controller: controller,
 
